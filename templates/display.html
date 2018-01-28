@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Player List
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-md-8">
+        <form action="/players" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <h2>Refine Player List</h2>
+                    <div class="form-group">
+                        <h5>Stat Type<br></h5>
+                        <div id="type">
+                            <input type="radio" name="range" value="career" checked="checked">Multi_Season Totals</input>
+                            <input type="radio" name="range" value="season">Individual Seasons</input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h5>Season Constraints<br></h5>
+                        <div id="seasConstraints">
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm" onclick="addConst('seas')">Add Season Constraint</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('seas')">Remove Constraints</button>
+                    </div>
+                    <div class="form-group">
+                        <h5>Stat Constraints<br></h5>
+                        <div id="statConstraints">
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm" onclick="addConst('stat')">Add Stat Constraint</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('stat')">Remove Constraints</button>
+                    </div>
+                    <div class="form-group">
+                        <h5>Name Constraints</h5>
+                        <div id="nameConstraints">
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm" onclick="addConst('name')">Add Name Constraint</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('name')">Remove Constraints</button>
+                    </div>
+                    <div class="form-group">
+                        <h5>Position Constraints</h5>
+                        <div id="posConstraints">
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm" onclick="addConst('pos')">Add Position Constraint</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('pos')">Remove Constraints</button>
+                    </div>
+                    <div class="form-group">
+                        <h5>Team Constraints</h5>
+                        <div id="teamConstraints">
+                            Type:
+                            <select name="teamType">
+                                <option value="include">Include</option>
+                                <option value="exclude">Exclude</option>
+                            </select>
+                            Team/League:
+                            <select name="team">
+                                <option value="0">All</option>
+                                <option value="AL">AL</option>
+                                <option value="NL">NL</option>
+                                <option value="AA">AA</option>
+                                <option value="NA">NA</option>
+                                <option value="UA">UA</option>
+                                <option value="PL">PL</option>
+                                <option value="BAL">BAL</option>
+                                <option value="BOS">BOS</option>
+                                <option value="NYY">NYY</option>
+                                <option value="TB">TB</option>
+                                <option value="TOR">TOR</option>
+                                <option value="CLE">CLE</option>
+                                <option value="CWS">CWS</option>
+                                <option value="DET">DET</option>
+                                <option value="KC">KC</option>
+                                <option value="MIN">MIN</option>
+                                <option value="HOU">HOU</option>
+                                <option value="LAA">LAA</option>
+                                <option value="OAK">OAK</option>
+                                <option value="SEA">SEA</option>
+                                <option value="TEX">TEX</option>
+                                <option value="ATL">ATL</option>
+                                <option value="MIA">MIA</option>
+                                <option value="NYM">NYM</option>
+                                <option value="PHI">PHI</option>
+                                <option value="WAS">WAS</option>
+                                <option value="CHC">CHC</option>
+                                <option value="CIN">CIN</option>
+                                <option value="MIL">MIL</option>
+                                <option value="PIT">PIT</option>
+                                <option value="STL">STL</option>
+                                <option value="ARI">ARI</option>
+                                <option value="COL">COL</option>
+                                <option value="LAD">LAD</option>
+                                <option value="SD">SD</option>
+                                <option value="SF">SF</option>
+                            </select>
+                            <br>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary" type="submit" vALUE="Get Stats"></input>
+                </div>
+                <div class="form-group col-md-4">
+                    <h2>Stats to Display</h2>
+                    <div id="statList">
+                        <div class="row">
+                        <div class="form-group col-md-6">
+                            <input type="checkbox" name="statbox" value="Batting_Average" id="AVG">
+                            <label for="AVG">AVG</label><br>
+                            <input type="checkbox" name="statbox" value="Home_Runs" id="HR">
+                            <label for="HR">HR</label><br>
+                            <input type="checkbox" name="statbox" value="RBIs" id="RBI">
+                            <label for="RBI">RBI</label><br>
+                            <input type="checkbox" name="statbox" value="Runs" id="R">
+                            <label for="R">R</label><br>
+                            <input type="checkbox" name="statbox" value="Hits" id="H">
+                            <label for="H">H</label><br>
+                            <input type="checkbox" name="statbox" value="Doubles" id="2B">
+                            <label for="2B">2B</label><br>
+                            <input type="checkbox" name="statbox" value="Triples" id="3B">
+                            <label for="3B">3B</label><br>
+                            <input type="checkbox" name="statbox" value="Games" id="GP">
+                            <label for="GP">GP</label><br>
+                            <input type="checkbox" name="statbox" value="Plate_Appearances" id="PA">
+                            <label for="PA">PA</label><br>
+                            <input type="checkbox" name="statbox" value="At_Bats" id="AB">
+                            <label for="AB">AB</label><br>
+                            <input type="checkbox" name="statbox" value="Stolen_Bases" id="SB">
+                            <label for="SB">SB</label><br>
+                            <input type="checkbox" name="statbox" value="Caught_Stealing" id="CS">
+                            <label for="CS">CS</label><br>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="checkbox" name="statbox" value="Walks" id="BB">
+                            <label for="BB">BB</label><br>
+                            <input type="checkbox" name="statbox" value="Strike_Outs" id="K">
+                            <label for="K">K</label><br>
+                            <input type="checkbox" name="statbox" value="On_Base_Percentage" id="OBP">
+                            <label for="OBP">OBP</label><br>
+                            <input type="checkbox" name="statbox" value="SLUGGING" id="SLG">
+                            <label for="SLG">SLG</label><br>
+                            <input type="checkbox" name="statbox" value="OPS" id="OPS">
+                            <label for="OPS">OPS</label><br>
+                            <input type="checkbox" name="statbox" value="OPS_Plus+" id="OPS+">
+                            <label for="OPS+">OPS+</label><br>
+                            <input type="checkbox" name="statbox" value="Total_Bases" id="TB">
+                            <label for="TB">TB</label><br>
+                            <input type="checkbox" name="statbox" value="Double_Plays_Grounded_Into" id="GIDP">
+                            <label for="GIDP">GIDP</label><br>
+                            <input type="checkbox" name="statbox" value="Hit_By_Pitch" id="HBP">
+                            <label for="HBP">HBP</label><br>
+                            <input type="checkbox" name="statbox" value="Sacrifice_Hits" id="SAC">
+                            <label for="SAC">SAC</label><br>
+                            <input type="checkbox" name="statbox" value="Sacrifice_Flies" id="SF">
+                            <label for="SF">SF</label><br>
+                            <input type="checkbox" name="statbox" value="Intentional_Bases_On_Balls" id="IBB">
+                            <label for="IBB">IBB</label><br>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Player List</h2>
+        <table cellspacing="0" cellpadding="0" border="0" width="325">
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="1" border="1" width="300" >
+                        <tr style="color:white;background-color:grey">
+                            <th>Player Name</th>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width:320px; height:600px; overflow:auto;">
+                        <table cellspacing="0" cellpadding="1" border="1" width="300" >
+                            {% for name in players %}
+                            <tr>
+                                <td>{{ name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

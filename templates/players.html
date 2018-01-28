@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stat Search
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Player List</h2>
+        <table cellspacing="0" cellpadding="1" border="1" width="100%" >
+            <!-- make a row of headers for each stat -->
+            <tr style="color:white;background-color:grey">
+                {% for stat in stats %}
+                    <th>{{ stat }}</th>
+                {% endfor %}
+            </tr>
+            <!-- make a row for each player -->
+            {% for player in players %}
+                <tr>
+                    {% for box in player %}
+                    <td>{{ box }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

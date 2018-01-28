@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+    <h2>Get Players</h2>
+    <form action="/display" method="post">
+    <div class="form-group">
+        <h5>Stat Type<br></h5>
+        <div id="type">
+            <input type="radio" name="range" value="career" checked="checked">Multi_Season Totals</input>
+            <input type="radio" name="range" value="season">Individual Seasons</input>
+        </div>
+    </div>
+    <div class="form-group">
+        <h5>Season Constraints<br></h5>
+        <div id="seasConstraints">
+        </div>
+        <button type="button" class="btn btn-success btn-sm" onclick="addConst('seas')">Add Season Constraint</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('seas')">Remove Constraints</button>
+    </div>
+    <div class="form-group">
+        <h5>Stat Constraints<br></h5>
+        <div id="statConstraints">
+        </div>
+        <button type="button" class="btn btn-success btn-sm" onclick="addConst('stat')">Add Stat Constraint</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('stat')">Remove Constraints</button>
+    </div>
+    <div class="form-group">
+        <h5>Name Constraints</h5>
+        <div id="nameConstraints">
+        </div>
+        <button type="button" class="btn btn-success btn-sm" onclick="addConst('name')">Add Name Constraint</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('name')">Remove Constraints</button>
+    </div>
+    <div class="form-group">
+        <h5>Position Constraints</h5>
+        <div id="posConstraints">
+        </div>
+        <button type="button" class="btn btn-success btn-sm" onclick="addConst('pos')">Add Position Constraint</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="remConst('pos')">Remove Constraints</button>
+    </div>
+    <div class="form-group">
+        <h5>Team Constraints</h5>
+        <div id="teamConstraints">
+            Type:
+            <select name="teamType">
+                <option value="include">Include</option>
+                <option value="exclude">Exclude</option>
+            </select>
+            Team/League:
+            <select name="team">
+                <option value="0">All</option>
+                <option value="AL">AL</option>
+                <option value="NL">NL</option>
+                <option value="AA">AA</option>
+                <option value="NA">NA</option>
+                <option value="UA">UA</option>
+                <option value="PL">PL</option>
+                <option value="BAL">BAL</option>
+                <option value="BOS">BOS</option>
+                <option value="NYY">NYY</option>
+                <option value="TB">TB</option>
+                <option value="TOR">TOR</option>
+                <option value="CLE">CLE</option>
+                <option value="CWS">CWS</option>
+                <option value="DET">DET</option>
+                <option value="KC">KC</option>
+                <option value="MIN">MIN</option>
+                <option value="HOU">HOU</option>
+                <option value="LAA">LAA</option>
+                <option value="OAK">OAK</option>
+                <option value="SEA">SEA</option>
+                <option value="TEX">TEX</option>
+                <option value="ATL">ATL</option>
+                <option value="MIA">MIA</option>
+                <option value="NYM">NYM</option>
+                <option value="PHI">PHI</option>
+                <option value="WAS">WAS</option>
+                <option value="CHC">CHC</option>
+                <option value="CIN">CIN</option>
+                <option value="MIL">MIL</option>
+                <option value="PIT">PIT</option>
+                <option value="STL">STL</option>
+                <option value="ARI">ARI</option>
+                <option value="COL">COL</option>
+                <option value="LAD">LAD</option>
+                <option value="SD">SD</option>
+                <option value="SF">SF</option>
+            </select>
+            <br>
+        </div>
+    </div>
+
+    <input class="btn btn-primary" type="submit" vALUE="Get Players"></input>
+</form>
+{% endblock %}
